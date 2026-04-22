@@ -9,10 +9,13 @@ import java.awt.Graphics2D;
 
 public class Ball {
 	
-	// TODO: Add private fields for x,y, radius 
+	// TODO: Add fields for position and size
+	private int x;
+	private int y;
+	private int radius;
+	private int startX;
+	private int startY; 
 	
-	private int startX; // we use this for storing initial values
-	private int startY; // we use this for storing initial values
 	/**
 	 * Creates a new ball at the given position.
 	 *
@@ -22,10 +25,11 @@ public class Ball {
 	 */
 	public Ball(int x, int y, int radius) {
 		// TODO: Initialize fields
-		
-		this.startX = x; // storing the starting position
-		this.startY = y; // storing the starting position
-		
+		this.x = x;
+		this.y = y;
+		this.radius = radius;
+		this.startX = x; // the initial position
+		this.startY = y; // the initial position
 	}
 	
 	/**
@@ -34,11 +38,9 @@ public class Ball {
 	 * @param g2 graphics object used for drawing
 	 */
 	public void draw(Graphics2D g2) {
-		g2.setColor(Color.RED);
 		// TODO: Draw the ball with fillOval(...)
-		// fillOval uses (x, y, width, height) where width and height are 2 * radius
-		
-
+		g2.setColor(Color.RED);
+		g2.fillOval(x, y, 2*radius, 2*radius);
 	}
 	
 	/**
@@ -49,19 +51,21 @@ public class Ball {
 	
 	public void shift(int dx) {
 		// TODO: Update the ball's x-position
+		  x += dx;
 		  
 		// IMPORTANT: Do NOT call repaint() here.
-		// The Ball should NOT control when the screen redraws.
-		// The GameComponent (panel) is responsible for repainting.
-	}
+			// The Ball should NOT control when the screen redraws.
+			// The GameComponent (panel) is responsible for repainting.
+		}
 	
 	/**
 	 * Resets the ball to its starting position.
 	 */
 	public void reset() {
 		// TODO: Move the ball back to where it was originally created
-		// Hint: Use the stored starting position (startX and startY)
-		// Replace the current x and y with those values
+				// Hint: Use the stored starting position (startX and startY)
+				// Replace the current x and y with those values
+		this.x = this.startX;
 	}
 
 }

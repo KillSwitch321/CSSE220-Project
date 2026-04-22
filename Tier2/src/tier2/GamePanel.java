@@ -64,6 +64,7 @@ public class GamePanel extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String label = e.getActionCommand();
+			
 			if (label.equals("Left")) {
 				canvas.move(-10);
 			}
