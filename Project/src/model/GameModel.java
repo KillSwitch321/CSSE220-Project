@@ -14,6 +14,26 @@ package model;
 
 public class GameModel {
 	
-	// Work on the lab to complete GameModel and Player for initial setup
-
+	private Player player;
+	
+	public GameModel() {
+		player = new Player(5,5);
+		
+	}
+	public void moveUp() {
+	this.player.moveBy(0,-1);
+	}
+	public void moveDown() {
+		this.player.moveBy(0,1);
+	}
+	public void moveLeft() {
+		this.player.moveBy(-1,0);
+	}
+	public void moveRight() {
+		this.player.moveBy(1,0);
+	}
+	public Player getPlayer() {
+		return player;
+	}
+	
 }

@@ -23,6 +23,7 @@ public class GameComponent extends JComponent {
 	protected void paintComponent(Graphics g) {
 	super.paintComponent(g);
 	Graphics2D g2 = (Graphics2D) g;
+	model.getPlayer().drawOn(g2);
 
 	// Minimal placeholder to test  it’s running
 	g2.drawString("Final Project Starter: UI is running ✅", 20, 30);
