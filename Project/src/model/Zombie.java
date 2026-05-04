@@ -7,19 +7,16 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import ui.GameComponent;
-
-
-public class Player {
+public class Zombie {
     private int posX;
     private int posY;
     BufferedImage sprite;
-    public Player(int x, int y) {
+
+    public Zombie(int x, int y) {
         this.posX = x;
         this.posY = y;
-        
-		try {
-			sprite = ImageIO.read(Player.class.getResource("PlayerSprite.png"));
+        try {
+			sprite = ImageIO.read(Player.class.getResource("ZombieSprite.png"));
 		} catch (IOException | IllegalArgumentException e) {
 			sprite = null;
 		}
@@ -39,11 +36,12 @@ public class Player {
     }
 
     public void drawOn(Graphics g) {
-        if (sprite != null) {
-			g.drawImage(sprite, this.posX, this.posY, 30, 45, null);
-		} else {
-		g.setColor(Color.BLACK);
-		g.fillRect(this.posX, this.posY, 30, 45);
-	}
+    	 if (sprite != null) {
+ 			g.drawImage(sprite, this.posX, this.posY, 30, 45, null);
+ 		} else {
+ 			g.setColor(Color.RED);
+ 	        g.fillRect(posX, posY, 30, 45);
+ 	}
+        
     }
 }

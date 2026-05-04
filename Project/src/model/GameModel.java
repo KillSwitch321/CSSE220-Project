@@ -1,6 +1,7 @@
 package model;
 
-
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Stores the current state of the game and controls the main game rules.
@@ -14,26 +15,38 @@ package model;
 
 public class GameModel {
 	
+	// Work on the lab to complete GameModel and Player for initial setup
+
 	private Player player;
-	
-	public GameModel() {
-		player = new Player(5,5);
-		
-	}
-	public void moveUp() {
-	this.player.moveBy(0,-1);
-	}
-	public void moveDown() {
-		this.player.moveBy(0,1);
-	}
-	public void moveLeft() {
-		this.player.moveBy(-1,0);
-	}
-	public void moveRight() {
-		this.player.moveBy(1,0);
-	}
-	public Player getPlayer() {
-		return player;
-	}
-	
+    private List<Zombie> zombies;
+
+    public GameModel() {
+        this.player = new Player(100, 100);
+        this.zombies = new ArrayList<>();
+        this.zombies.add(new Zombie(300, 300));
+        this.zombies.add(new Zombie(400, 100));
+    }
+
+    public Player getPlayer() {
+        return this.player;
+    }
+
+    public void movePlayer(int dx, int dy) {
+        this.player.moveBy(dx, dy);
+    }
+
+    public List<Zombie> getZombies() {
+        return this.zombies;
+    }
+
+    public void moveZombies() {
+    	for (Zombie z : zombies) {
+            int dx = (player.getX() > z.getX()) ? 1 : (player.getX() < z.getX() ? -1 : 0);
+            int dy = (player.getY() > z.getY()) ? 1 : (player.getY() < z.getY() ? -1 : 0);
+            z.moveBy(dx, dy);
+        }
+    }
+
+    public Object getCoins() { return null; }
+    public Object getTileMap() { return null; }
 }
