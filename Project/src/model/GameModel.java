@@ -15,8 +15,6 @@ import java.util.List;
 
 public class GameModel {
 	
-	// Work on the lab to complete GameModel and Player for initial setup
-
 	private Player player;
     private List<Zombie> zombies;
 
