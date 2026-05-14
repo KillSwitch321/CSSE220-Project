@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.swing.JComponent;
 import javax.swing.Timer;
+
+import model.Coin;
 import model.GameModel;
 import model.Zombie;
 
@@ -41,12 +43,18 @@ public class GameComponent extends JComponent implements KeyListener, ActionList
                 z.drawOn(g2);
             }
         }
+        if (model.getCoins() != null) {
+            for (Coin c : model.getCoins()) {
+                c.drawOn(g2);
+            }
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         updateMovement();
         model.moveZombies();
+        model.checkPlayerCollides();
         repaint();
     }
 

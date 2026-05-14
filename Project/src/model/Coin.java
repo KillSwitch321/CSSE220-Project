@@ -8,18 +8,19 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Zombie implements Collidable{
+public class Coin implements Collidable{
     private int posX;
     private int posY;
     BufferedImage sprite;
-    private static int width = 30;
-    private static int height = 45;
+    private static int VALUE;
+    private static int height = 20;
+    private static int width = 20;
 
-    public Zombie(int x, int y) {
+    public Coin(int x, int y) {
         this.posX = x;
         this.posY = y;
         try {
-			sprite = ImageIO.read(Player.class.getResource("ZombieSprite.png"));
+			sprite = ImageIO.read(Player.class.getResource("CoinSprite.png"));
 		} catch (IOException | IllegalArgumentException e) {
 			sprite = null;
 		}
@@ -33,21 +34,20 @@ public class Zombie implements Collidable{
         return this.posY;
     }
 
-    public void moveBy(int x, int y) {
-        this.posX += x;
-        this.posY += y;
+    public void collect() {
     }
 
     public void drawOn(Graphics g) {
     	 if (sprite != null) {
- 			g.drawImage(sprite, this.posX, this.posY, width, height, null);
+ 			g.drawImage(sprite, this.posX, this.posY, 30, 45, null);
  		} else {
- 			g.setColor(Color.RED);
- 	        g.fillRect(posX, posY, 30, 45);
+ 			g.setColor(Color.YELLOW);
+ 	        g.fillRect(posX, posY, this.width, this.height);
  	}
         
     }
-    @Override
+
+	@Override
 	public Rectangle getBounds() {
 	    return new Rectangle(this.posX, this.posY, this.width, this.height);
 	}
@@ -55,5 +55,8 @@ public class Zombie implements Collidable{
 	@Override
 	public boolean collidesWith(Collidable other) {
 		return this.getBounds().intersects(other.getBounds());
+	}
+	public int getValue() {
+		return this.VALUE;
 	}
 }

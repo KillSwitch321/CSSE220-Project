@@ -24,5 +24,4 @@ public class MainApp {
 		GameWindow window = new GameWindow(model);
 		window.show();
 	}
-	
 }
