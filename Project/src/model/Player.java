@@ -65,9 +65,10 @@ public class Player implements Collidable{
 		return this.getBounds().intersects(other.getBounds());
 	}
 
-
+	public void setLives(int lives) {
+		this.lives = lives;
+	}
 	public int getLives() {
-		// TODO Auto-generated method stub
 		return this.lives;
 	}
 	public int getScore() {
@@ -80,4 +81,5 @@ public class Player implements Collidable{
 		this.posX = x;
 		this.posY = y;
 	}
+
 }
