@@ -3,9 +3,7 @@ package ui;
 import javax.swing.JFrame;
 
 import model.GameModel;
-/**
- * GameWindow owns the frame
- **/
+
 public class GameWindow {
 	
 	private final JFrame frame;
@@ -17,7 +15,7 @@ public class GameWindow {
 
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.add(new GameComponent(this.model));
-		this.frame.setSize(600, 600);
+		this.frame.setSize(800, 800);
 		this.frame.setLocationRelativeTo(null);
 	}
 

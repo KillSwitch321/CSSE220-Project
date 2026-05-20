@@ -7,27 +7,30 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.Timer;
-import java.awt.Color;   // Add this import
-import java.awt.Font;
+import java.awt.Color;
 
 import model.Coin;
 import model.GameModel;
+import model.GameModel.GameState;
+import model.Wall;
 import model.Zombie;
 
 public class GameComponent extends JComponent implements KeyListener, ActionListener {
-	private GameModel model;
+    private GameModel model;
     private Timer gameTimer;
     private Set<Integer> pressedKeys = new HashSet<>();
     private GameOverlay overlay;
     private JButton restartButton;
     private JButton startButton;
     private int tickCounter = 0;
+    
+    private int intermissionTickCounter = 0; 
+    private static final int INTERMISSION_DURATION = 120;
 
     public GameComponent(GameModel model) {
         this.model = model;
@@ -37,14 +40,14 @@ public class GameComponent extends JComponent implements KeyListener, ActionList
         
         this.setLayout(null);
         this.restartButton = new JButton("Restart Game");
-        this.restartButton.setBounds(250, 350, 100, 40);
+        this.restartButton.setBounds(340, 450, 120, 40);
         this.restartButton.setFocusable(false);
         this.restartButton.setVisible(false);
         this.restartButton.addActionListener(e -> restartGame());
         this.add(restartButton);
         
         this.startButton = new JButton("Start Game");
-        this.startButton.setBounds(240, 350, 120, 40);
+        this.startButton.setBounds(340, 450, 120, 40);
         this.startButton.setFocusable(false);
         this.startButton.addActionListener(e -> {
             model.startGame();
@@ -60,6 +63,7 @@ public class GameComponent extends JComponent implements KeyListener, ActionList
     private void restartGame() {
         model.resetGame();
         tickCounter = 0;
+        intermissionTickCounter = 0;
         restartButton.setVisible(false);
         
         this.requestFocusInWindow();
@@ -68,25 +72,29 @@ public class GameComponent extends JComponent implements KeyListener, ActionList
 
     @Override
     protected void paintComponent(Graphics g) {
-    	super.paintComponent(g);
+        super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         
-        if (model.hasStarted()) {
+        g2.setColor(new Color(25, 28, 32)); 
+        g2.fillRect(0, 0, getWidth(), getHeight());
+        
+        if (model.getCurrentState() == GameState.PLAYING || model.getCurrentState() == GameState.LEVEL_INTERMISSION) {
+            for (Wall w : model.getWalls()) {
+                w.drawOn(g2);
+            }
             if (model.getPlayer() != null) model.getPlayer().drawOn(g2);
             for (Zombie z : model.getZombies()) z.drawOn(g2);
             for (Coin c : model.getCoins()) c.drawOn(g2);
         }
 
-        overlay.draw(g2, getWidth(), getHeight());
-
-        if (model.isGameOver()) {
-            restartButton.setVisible(true);
-        }
+        overlay.draw(g2, getWidth(), getHeight(), intermissionTickCounter, INTERMISSION_DURATION);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    	if (model.hasStarted() && !model.isGameOver()) {
+        GameState state = model.getCurrentState();
+
+        if (state == GameState.PLAYING) {
             updateMovement();
             model.moveZombies();
             model.checkPlayerCollides();
@@ -96,7 +104,20 @@ public class GameComponent extends JComponent implements KeyListener, ActionList
                 model.spawnRandomZombie();
                 tickCounter = 0;
             }
+        } 
+        else if (state == GameState.LEVEL_INTERMISSION) {
+            if (model.getPlayer() != null && model.getPlayer().getLives() <= 0) {
+                model.setCurrentState(GameState.GAME_OVER);
+                restartButton.setVisible(true);
+            } else {
+                intermissionTickCounter++;
+                if (intermissionTickCounter >= INTERMISSION_DURATION) {
+                    intermissionTickCounter = 0;
+                    model.startNextLevel(); 
+                }
+            }
         }
+        
         repaint();
     }
 
@@ -118,7 +139,8 @@ public class GameComponent extends JComponent implements KeyListener, ActionList
     public void restart() {
         model.resetGame();
         tickCounter = 0;
-        this.requestFocusInWindow(); // Ensure keyboard focus returns to the game
+        intermissionTickCounter = 0;
+        this.requestFocusInWindow();
     }
 
     @Override

@@ -5,10 +5,9 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 
-public class Coin implements Collidable{
+public class Coin implements Collidable {
     private int posX;
     private int posY;
     BufferedImage sprite;
@@ -20,10 +19,10 @@ public class Coin implements Collidable{
         this.posX = x;
         this.posY = y;
         try {
-			sprite = ImageIO.read(Player.class.getResource("CoinSprite.png"));
-		} catch (IOException | IllegalArgumentException e) {
-			sprite = null;
-		}
+            sprite = ImageIO.read(Player.class.getResource("CoinSprite.png"));
+        } catch (IOException | IllegalArgumentException e) {
+            sprite = null;
+        }
     }
 
     public int getX() {
@@ -34,30 +33,26 @@ public class Coin implements Collidable{
         return this.posY;
     }
 
-    public void collect() {
-    }
-
     public void drawOn(Graphics g) {
-    	 if (sprite != null) {
- 			g.drawImage(sprite, this.posX, this.posY, WIDTH, HEIGHT, null);
- 		} else {
- 			g.setColor(Color.YELLOW);
- 	        g.fillRect(posX, posY, WIDTH, HEIGHT);
- 	}
-        
+        if (sprite != null) {
+            g.drawImage(sprite, this.posX, this.posY, WIDTH, HEIGHT, null);
+        } else {
+            g.setColor(Color.YELLOW);
+            g.fillRect(posX, posY, WIDTH, HEIGHT);
+        }
     }
 
-	@Override
-	public Rectangle getBounds() {
-	    return new Rectangle(this.posX, this.posY, WIDTH, HEIGHT);
-	}
+    @Override
+    public Rectangle getBounds() {
+        return new Rectangle(this.posX, this.posY, WIDTH, HEIGHT);
+    }
 
-	@Override
-	public boolean collidesWith(Collidable other) {
-		return this.getBounds().intersects(other.getBounds());
-	}
-	
-	public int getValue() {
-		return VALUE;
-	}
+    @Override
+    public boolean collidesWith(Collidable other) {
+        return this.getBounds().intersects(other.getBounds());
+    }
+
+    public int getValue() {
+        return VALUE;
+    }
 }
