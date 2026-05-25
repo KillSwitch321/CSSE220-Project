@@ -7,7 +7,13 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
-
+/**
+* @param  posX the location of the player, relative to screen 0,0
+* @param  posY the location of the player, relative to screen 0,0
+* @param lives how many lives the player has
+* @param width, height the size of the sprite, used for collision calculations
+* @param  sprite the image of the sprite
+*/
 public class Player implements Collidable {
     private int posX;
     private int posY;

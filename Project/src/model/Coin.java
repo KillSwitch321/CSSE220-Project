@@ -7,7 +7,14 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+
 public class Coin implements Collidable {
+	/**
+	* @param  posX the location of the coin, relative to screen 0,0
+	* @param  posY the location of the coin, relative to screen 0,0
+	* @param  sprite the image of the sprite
+	* @return      the image at the specified URL
+	*/
     private int posX;
     private int posY;
     BufferedImage sprite;

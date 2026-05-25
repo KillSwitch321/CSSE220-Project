@@ -4,6 +4,11 @@ import java.awt.Point;
 import java.io.InputStream;
 import java.util.Scanner;
 
+/**
+* @param  MaxRows the amount of rows the level has
+* @param  Max Cols the amount of columns the level has
+* @param TileSize the size in pixels of each tile
+*/
 public class LevelLoader {
     private static final int TILE_SIZE = 40;
     private static final int MAX_ROWS = 20;

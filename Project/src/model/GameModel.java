@@ -80,8 +80,11 @@ public class GameModel {
     public void startNextLevel() {
     	this.zombies.clear();
         this.coins.clear();
-    	
-        loadLevel("Level1.txt");
+        if( Math.random() >= 0.5) {
+        	loadLevel("Level2.txt");}
+        else {
+        	loadLevel("Level1.txt");}
+        
         spawnRandomCoin();
         for (int i = 0; i < currentLevel; i++) {
             spawnRandomZombie();
@@ -106,7 +109,7 @@ public class GameModel {
             this.player.setScore(0);
             this.player.setLives(3);
         }
-        loadLevel("Level1.txt");
+        loadLevel("Level2.txt");
         
         //spawnRandomCoin();
         //spawnRandomZombie();
@@ -122,8 +125,6 @@ public class GameModel {
         currentLevel = 1;
         coinsInCurrentLevel = 0;
         isCurrentlyColliding = false;
-        
-        loadLevel("Level1.txt");
         
         spawnRandomCoin();
         spawnRandomZombie();

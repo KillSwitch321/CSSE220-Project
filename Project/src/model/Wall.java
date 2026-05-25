@@ -8,7 +8,10 @@ import java.awt.image.BufferedImage;
 public class Wall {
     private int x, y, size;
     private BufferedImage sprite;
-
+    /**
+	* @param  posX the location of the coin, relative to screen 0,0
+	* @param  posY the location of the coin, relative to screen 0,0
+	*/
     public Wall(int x, int y, int size, BufferedImage sharedSprite) {
         this.x = x;
         this.y = y;

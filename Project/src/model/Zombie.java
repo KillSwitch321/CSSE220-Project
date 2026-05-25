@@ -8,7 +8,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.imageio.ImageIO;
-
+/**
+* @param  posX the location of the zombie, relative to screen 0,0
+* @param  posY the location of the zombie, relative to screen 0,0
+* @param speed the speed of the zombie
+* @param width, height the size of the sprite, used for collision calculations
+* @param  sprite the image of the sprite
+*/
 public class Zombie implements Collidable {
     private int posX;
     private int posY;
@@ -44,7 +50,9 @@ public class Zombie implements Collidable {
         this.posX += x;
         this.posY += y;
     }
-
+    /**
+    * Handles picking the direction to move to chase the player
+    */
     public void chase(Player player, ArrayList<Wall> walls) {
 
         this.moveBy(currentDx, currentDy);

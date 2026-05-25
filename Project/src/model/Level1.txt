@@ -17,3 +17,4 @@
 #.#.############.#.#
 #C............Z...C#
 ####################
+// # wall, . floor, P player spawn, Z zombie spawn, C Coin Spawn
